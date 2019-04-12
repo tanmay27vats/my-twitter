@@ -1,0 +1,31 @@
+
+<table border='1' cellpadding='5' cellspacing='1'>
+    <thead>
+        <tr>
+            <th>S.No.</th>
+            <th>Email</th>
+            <th>Follow / Un-Follow</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% i = 0 %>
+        <% @users.each do | user | %>
+            <% @user = user %>
+            <tr>
+                <td><%= i += 1 %></td>
+                <td><%= user.try(:email) %></td>
+                <td>
+                    <div id="follow_form">
+                        <% if current_user.following?(@user) %>
+                            <%= render 'unfollow' %>
+                        <% else %>
+                            <%= render 'follow' %>
+                        <% end %>
+                    </div>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<% @user = current_user %>
+<%= render :file => 'user/show_follow' %>

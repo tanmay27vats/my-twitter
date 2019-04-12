@@ -1,0 +1,20 @@
+<% navs = {
+    Home: root_path,
+    Profile: profile_path
+    }
+%>
+<% total_navs = navs.count %>
+<% i = 0 %>
+
+<% navs.each do |key, value| %>
+    <%= link_to  key.to_s.humanize, value %>
+    <% i += 1 %>
+    <%= :| if i < total_navs %>
+<% end %>
+
+<% if user_signed_in? %>
+    <div class="right">
+        <b>Hello <%= current_user.email %></b> | 
+        <%= link_to  "Log Out", destroy_user_session_path, {class: :red, method: :delete, data: { confirm: 'Are you sure?' } } %>
+    </div>
+<% end %>

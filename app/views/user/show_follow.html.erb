@@ -1,0 +1,40 @@
+<h3>User - <%= @user.email %></h3>
+<%= render 'partials/stats' %>
+<br>
+<b>Total Tweets:</b> <%= @user.tweets.count %>
+<hr>
+<div class="row">
+  <% if @type.include? :followers %>
+    <div class="col-4">
+      <h3>Followers of <%= @user.email %></h3>
+      <ul>
+        <% @user_followers.each do | user | %>
+          <li> <%= link_to  user.email, following_user_path(user) %> </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <% if @type.include? :following %>
+    <div class="col-4">
+      <h3><%= @user.email %> Following</h3>
+      <ul>
+        <% @user_following.each do | user | %>
+          <li> <%= link_to  user.email, followers_user_path(user) %> </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="col-4">
+    <h3>Tweets of <%= @user.email %></h3>
+    <ul class="tweets">
+      <% @user.tweets.reverse.each do | tweet | %>
+        <li class="tweet">
+          <div class="font-10">Tweet Time - <%= tweet.created_at%></div>
+          <%= tweet.tweet %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
